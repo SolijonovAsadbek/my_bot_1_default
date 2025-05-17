@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import random
 from collections import defaultdict
 from dataclasses import dataclass, field
 import sys
@@ -37,23 +36,12 @@ matematika = [
     Question(text='2x * 4 = 0', options=['0', '9', '10', '11'], correct_answer='0'),
 ]
 
-# biologiya = [
-#     Question(text='2 * 4 = ?', options=['8', '9', '10', '11'], correct_answer='8'),
-#     Question(text='2 - 4 = ?', options=['-2', '3', '0', '1'], correct_answer='-2'),
-#     Question(text='2x * 4 = 0', options=['0', '9', '10', '11'], correct_answer='0'),
-# ]
-
 db = Database(questions=matematika)
-
-
-# db.extend(matematika)
-# db.extend(biologiya)
-# print(db)
 
 
 @dataclass
 class GameState:
-    step: dict = field(default_factory=defaultdict)  # {"128389123": 0, "129031":3, "2314141241": None}
+    step: dict = field(default_factory=defaultdict)  # {"128389123": 0, "129232031":3, "2314141241": None}
 
 
 dp['quizzes'] = db.questions
@@ -75,7 +63,7 @@ async def send_question(message: Message, game_state: GameState, quizzes: list[Q
     step = game_state.step.get(chat_id)
     if step >= len(quizzes):
         game_state.step[chat_id] = None
-        return await message.answer('Savollar tugadi!', reply_markup=ReplyKeyboardRemove())
+        return await message.answer('Savollar tugadi!\n\nQayta o`ynash uchun /play ni bosing!', reply_markup=ReplyKeyboardRemove())
 
     quiz = quizzes[step]
     text = quiz.text
