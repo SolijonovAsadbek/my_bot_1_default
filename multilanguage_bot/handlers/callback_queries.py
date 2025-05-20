@@ -1,9 +1,10 @@
 from aiogram.types import CallbackQuery
+from aiogram import Router
 
-from multilanguage_bot.app import dp
+call_router = Router()
 
 
-@dp.callback_query()
+@call_router.callback_query()
 async def uz_callback_handler(call: CallbackQuery):
     if call.data == 'uz':
         await call.message.answer(text=f"🇺🇿 O'zbek tilni tanladingiz!")

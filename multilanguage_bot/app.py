@@ -15,8 +15,10 @@ dp = Dispatcher()
 
 
 async def main() -> None:
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    from multilanguage_bot.handlers import start_router, call_router
 
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    dp.include_routers(start_router, call_router)
     await dp.start_polling(bot)
 
 
