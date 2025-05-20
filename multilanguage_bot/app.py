@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import sys
-from os import getenv
+from os import getenv, path
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -13,6 +13,8 @@ TOKEN = getenv("BOT_TOKEN")
 
 dp = Dispatcher()
 
+BASE_DIR = path.dirname(path.abspath(__file__))
+print(BASE_DIR)
 
 async def main() -> None:
     from multilanguage_bot.handlers import start_router, call_router
