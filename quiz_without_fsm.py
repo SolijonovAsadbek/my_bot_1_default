@@ -10,6 +10,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -48,14 +49,29 @@ dp['quizzes'] = db.questions
 dp['game_state'] = GameState()
 
 
-def make_keyboards(options, row=2):
-    width = len(options)
-    width = width + 1 if width % 2 != 0 else width
-    keyboards = [KeyboardButton(text=str(o)) for o in options]
-    keyboards = [keyboards[i:i + row] for i in range(0, width, row)]
+# static
+# def make_keyboards(options, row=2):
+#     width = len(options)
+#     width = width + 1 if width % 2 != 0 else width
+#     keyboards = [KeyboardButton(text=str(o)) for o in options]
+#     keyboards = [keyboards[i:i + row] for i in range(0, width, row)]
+#
+#     markup = ReplyKeyboardMarkup(keyboard=keyboards,
+#                                  resize_keyboard=True,
+#                                  input_field_placeholder='Tugma tanlang!',
+#                                  one_time_keyboard=True)
+#     return markup
 
-    markup = ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)
-    return markup
+
+# [[1, 2, 3], [4, 5, 6], [7]]  -- col = 3
+
+# dynamic
+def make_keyboards(options, col=2):
+    builder = ReplyKeyboardBuilder()
+    for opt in options:
+        builder.button(text=opt)
+    builder.adjust(col)
+    return builder.as_markup(resize_keyboard=True, input_field_placeholder='Ok',)
 
 
 async def send_question(message: Message, game_state: GameState, quizzes: list[Question]):
@@ -63,7 +79,8 @@ async def send_question(message: Message, game_state: GameState, quizzes: list[Q
     step = game_state.step.get(chat_id)
     if step >= len(quizzes):
         game_state.step[chat_id] = None
-        return await message.answer('Savollar tugadi!\n\nQayta o`ynash uchun /play ni bosing!', reply_markup=ReplyKeyboardRemove())
+        return await message.answer('Savollar tugadi!\n\nQayta o`ynash uchun /play ni bosing!',
+                                    reply_markup=ReplyKeyboardRemove())
 
     quiz = quizzes[step]
     text = quiz.text
