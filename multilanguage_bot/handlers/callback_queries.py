@@ -1,6 +1,8 @@
 from aiogram.types import CallbackQuery
 from aiogram import F, Router
 
+from multilanguage_bot.utils.db.postgres_db import pg
+
 call_router = Router()
 
 
@@ -12,3 +14,4 @@ async def uz_callback_handler(call: CallbackQuery):
         await call.message.answer(text=f"🇷🇺 Вы выбрали русский!")
     elif call.data == 'en':
         await call.message.answer(text=f"🇺🇸 You choose English language")
+    pg.update_lang(chat_id=call.message.chat.id, lang=call.data)

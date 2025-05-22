@@ -10,11 +10,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
+TG_TOKEN = getenv('TG_TOKEN')
+API_TOKEN = getenv('API_TOKEN')
 
 dp = Dispatcher()
 
 BASE_DIR = path.dirname(path.abspath(__file__))
 print(BASE_DIR)
+
 
 async def main() -> None:
     from multilanguage_bot.handlers import start_router, call_router

@@ -1,3 +1,5 @@
 {
-  "start": "Hello"
+  "start": "Hello",
+  "help": "/start - Bot Launch\n/help - Get Help\n/set_lang - Change language",
+  "set_lang": "Change language"
 }

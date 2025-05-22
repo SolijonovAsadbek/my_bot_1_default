@@ -35,6 +35,10 @@ class PsqlDB:
         query = f"""SELECT lang FROM users WHERE chat_id={chat_id};"""
         return self.fetchone(query)[0]
 
+    def update_lang(self, chat_id, lang):
+        query = f"""UPDATE users SET lang='{lang}' WHERE chat_id={chat_id};"""
+        self.execute(query)
+
 
 pg = PsqlDB()
 if __name__ == '__main__':

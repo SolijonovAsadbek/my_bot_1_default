@@ -1,3 +1,5 @@
 {
-  "start": "Salom!"
+  "start": "Salom!",
+  "help": "/start - Ishga tushurish\n/help - yordam so'rash\n/set_lang - Tilni o'zgartirish",
+  "set_lang": "Tilni o'zgartiring"
 }
