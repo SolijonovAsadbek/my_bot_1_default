@@ -1,5 +1,7 @@
 {
   "start": "Hello",
   "help": "/start - Bot Launch\n/help - Get Help\n/set_lang - Change language",
-  "set_lang": "Change language"
+  "set_lang": "Change language",
+  "choose_lang": "\uD83C\uDDFA\uD83C\uDDF8 You choose English language",
+  "change_lang_btn": "Change language"
 }

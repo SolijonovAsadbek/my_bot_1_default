@@ -1,5 +1,7 @@
 {
   "start": "Здравствуйте!",
   "help": "/start - запуск  \n/help - Запрос справки\n/set_lang - Изменить язык",
-  "set_lang": "Изменить язык"
+  "set_lang": "Изменить язык",
+  "choose_lang": "\uD83C\uDDF7\uD83C\uDDFA Вы выбрали русский!",
+  "change_lang_btn": "Изменить язык"
 }

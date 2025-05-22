@@ -7,6 +7,7 @@ def three_languages():
             InlineKeyboardButton(text='🇺🇿 uz', callback_data='uz'),
             InlineKeyboardButton(text='🇷🇺 ru', callback_data='ru'),
             InlineKeyboardButton(text='🇺🇸 en', callback_data='en'),
+            InlineKeyboardButton(text='Instagram', url='https://instagram.com'),
 
         ]
     ]

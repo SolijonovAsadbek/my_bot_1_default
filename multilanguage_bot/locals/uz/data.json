@@ -1,5 +1,8 @@
 {
   "start": "Salom!",
   "help": "/start - Ishga tushurish\n/help - yordam so'rash\n/set_lang - Tilni o'zgartirish",
-  "set_lang": "Tilni o'zgartiring"
+  "set_lang": "Tilni o'zgartiring",
+  "choose_lang": "\uD83C\uDDFA\uD83C\uDDFF O'zbek tilni tanladingiz!",
+  "change_lang_btn": "Tilni o`zgartirish"
+
 }
