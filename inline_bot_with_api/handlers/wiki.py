@@ -26,14 +26,14 @@ async def inline_query_handler(inline_query: InlineQuery):
         ))
         return await inline_query.answer(results, cache_time=1)
 
-    objs = wikipedia.search(word, results=5)
+    objs = wikipedia.search(word, results=3)
     print(word)
     print(objs)
     results = []
     for title in objs:
         obj = wikipedia.page(title)
         results.append(InlineQueryResultArticle(
-            id=str(random.randint(100000, 10000000)),
+            id=str(uuid.uuid4()),
             title=f"{obj.title}",
             description=f"\"{obj.content[:20]}\"",
             input_message_content=InputTextMessageContent(
