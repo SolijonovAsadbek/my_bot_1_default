@@ -1,4 +1,8 @@
+import random
+import uuid
+
 from aiogram import Router
+from aiogram.enums import ParseMode
 from aiogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 import wikipedia
 
@@ -8,18 +12,6 @@ wiki_router = Router()
 @wiki_router.inline_query()
 async def inline_query_handler(inline_query: InlineQuery):
     word = inline_query.query.strip()
-    # print(f"Query Word: {word}")
-    # wikipedia.set_lang('uz')
-    #
-    # results = wikipedia.search(word)
-    # for index, title in enumerate(results):
-    #     print(f"idx: {index}. {title}")
-    #
-    # idx = int(input('index: '))
-    # obj = wikipedia.page(results[idx])
-    # print(obj.title)
-    # print(obj.url)
-    # print(obj.content)
     results = []
     if not word:
         results.append(InlineQueryResultArticle(
@@ -32,4 +24,23 @@ async def inline_query_handler(inline_query: InlineQuery):
             )
 
         ))
-        return inline_query.answer(results, cache_time=1)
+        return await inline_query.answer(results, cache_time=1)
+
+    objs = wikipedia.search(word, results=5)
+    print(word)
+    print(objs)
+    results = []
+    for title in objs:
+        obj = wikipedia.page(title)
+        results.append(InlineQueryResultArticle(
+            id=str(random.randint(100000, 10000000)),
+            title=f"{obj.title}",
+            description=f"\"{obj.content[:20]}\"",
+            input_message_content=InputTextMessageContent(
+                message_text=f'<a href="{obj.url}">{obj.title}</a>',
+                parse_mode=ParseMode.HTML
+            )
+
+        ))
+    print(results)
+    await inline_query.answer(results, cache_time=1)
