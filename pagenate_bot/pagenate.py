@@ -48,20 +48,21 @@ async def cmd_help(message: Message) -> None:
     await message.answer('Yordam')
 
 
-# @dp.callback_query(PageCallbackData.filter(F.action == 'prev'))
-# @dp.callback_query(PageCallbackData.filter(F.action == 'next'))
+# @dp.callback_query(PageCallbackData.filter(action == 'prev'))
+# @dp.callback_query(PageCallbackData.filter(action == 'next'))
 @dp.callback_query(PageCallbackData.filter())
 async def callbacks_data(call: CallbackQuery, callback_data: PageCallbackData):
     page = int(callback_data.page)
-    if callback_data.action == 'next':
+    page = page - 1 if page > 0 else 0
+
+    if callback_data.action == 'next' and page < len(smiles) - 1:
         page += 1
-    elif callback_data.action == 'prev':
-        page += -1
+
     await call.message.edit_text(text=f"{smiles[page]}\n{page} - sahifa",
                                  reply_markup=page_keyboards(page))
 
 
-# @dp.callback_query(PageCallbackData.filter(F.action == 'prev'))
+# @dp.callback_query(PageCallbackData.filter(action == 'prev'))
 # async def callbacks_data(call: CallbackQuery, callback_data: PageCallbackData):
 #     pass
 
