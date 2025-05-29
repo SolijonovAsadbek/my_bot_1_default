@@ -1,0 +1,14 @@
+# -- student, SQLAlechmy(sqlite, postgres, mysql...)
+
+# SELECT * FROM student;  SQL query
+# SELECT * FROM student WHERE id=1;  SQL query
+# cur.excer('SELECT * FROM student;')
+
+# class Student(something):
+#     id, name, age
+
+# Student.objects.all();  ORM + CORE (SQL)
+# Student.objects.get(id=1);  ORM + CORE
+# session.query('SELECT * FROM student;') : CORE
+
+
