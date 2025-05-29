@@ -4,6 +4,7 @@ from sqlalchemy import (create_engine,
                         Text, String, Integer, INT,
                         )
 from sqlalchemy.orm import declarative_base, sessionmaker
+from tabulate import tabulate
 
 # from sqlalchemy.ext.declarative import declarative_base
 # sqlite, postgres, mysql
@@ -30,11 +31,24 @@ class People(Base):
     def __repr__(self):
         return f'{self.__class__.__name__}({self.id}, {self.name!r}, {self.age})'
 
+    @property
+    def is_adult(self):
+        return self.age >= 18
+
+    @property
+    def greating(self):
+        return f"Hello, {self.name}"
+
+    @classmethod
+    def display(cls, session):
+        people = session.query(cls).all()
+        people = [(p, p.is_adult, p.greating) for p in people]
+        header = ['Obyekt', 'is_adult', 'greating']
+        print(tabulate(people, header, tablefmt='simple_grid'))
+        return people
+
 
 Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-print(session.query(People).all())
-# p1 = People(name='John', age=30)
-# session.add(p1)
-# session.commit()
+print(People.display(session))
